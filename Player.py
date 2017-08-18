@@ -21,6 +21,11 @@ class Player(object):
     # You need experience to level up
     experience = 0
 
+    # TODO Fix this constructor
+    def __init__(self, name='', stats={}):
+        self.name = name
+        self.stats = stats
+
     def set_name(self, name):
         assert isinstance(name, str), "Player Object set_name method name argument is not of type <str>"
         self.name = name
@@ -28,12 +33,15 @@ class Player(object):
     def get_name(self):
         return self.name
 
+    def get_stats(self):
+        return self.stats
+
     def get_stat(self, stat):
         """Returns the numerical value of the stat passed to the method. For example,
         If you want to know the player's max_health, you would invoke as follows
 
         Player.get_stat('max_health')
-        """"
+        """
         assert stat in stats.keys(), "Player.get_stat(): Player stat " + str(stat) + " is not a valid player stat"
         return self.stats[stat]
 

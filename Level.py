@@ -11,7 +11,8 @@ class Node(object):
     # Any special dialogue associated with this node?
     dialogue = ""
     # Different Terrain types have different effects on the player's stats and gameplay.
-    terrain = None
+    # The default terrain type is grass
+    terrain = 'grass'
 
     def __init__(self, accessible=False, items=[], dialogue="", terrain='grass'):
         self.accessible = accessible
@@ -23,7 +24,6 @@ class Node(object):
         self.accessible = True
 
     def set_inaccessible(self):
-
         self.accessible = False
 
     def get_accessible(self):
