@@ -28,33 +28,33 @@ class Player(object):
     def get_name(self):
         return self.name
 
-    def set_max_health(self, max_health):
-        self.max_health = max_health
+    def get_stat(self, stat):
+        """Returns the numerical value of the stat passed to the method. For example,
+        If you want to know the player's max_health, you would invoke as follows
 
-    def get_max_health(self):
-        return self.max_health
+        Player.get_stat('max_health')
+        """"
+        assert stat in stats.keys(), "Player.get_stat(): Player stat " + str(stat) + " is not a valid player stat"
+        return self.stats[stat]
 
-    def set_current_health(self, current_health):
-        self.current_health = current_health
+    def set_stat(self, stat, new_value):
+        """The preffered way to change a player's stats. This could be due to status ailements, leveling, healing, etc.
+        For example, suppose a player heals themselves using a potion. The set_stat() method would be invoked as follows:
 
-    def get_curren_health(self):
-        return self.current_health
+        Player.set_stat('current_health') += 20
+        """
 
-    def set_max_mana(self, max_mana):
-        self.max_mana = max_mana
+        assert stat in stats.keys(), "Player.get_stat(): Player stat " + str(stat) + " is not a valid player stat"
+        self.stats[stat] = new_value
 
-    def get_max_mana(self):
-        return self.max_mana
+    def get_inventory(self):
+        return self.inventory
 
-    def set_current_mana(self, current_mana):
-        self.current_mana = current_mana
+    def add_inventory_item(self, *items):
+        self.inventory.extend(items)
 
-    def get_current_mana(self):
-        return self.current_mana
+    def get_money(self):
+        return self.Money
 
-    def set_strength(self, strength):
-        self.strength = strength
-
-    def
-
-    def
+    def set_money(self, new_value):
+        self.money = new_value
