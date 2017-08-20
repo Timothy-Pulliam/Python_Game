@@ -26,7 +26,7 @@ def character_creation():
         player1.set_stat('intelligence', intelligence)
 
         print("Are these stats correct?")
-        player1.get_stats()
+        print(player1.get_stats())
         response = input()
         if response.lower() == 'y' or response.lower() == 'yes':
             done = True
