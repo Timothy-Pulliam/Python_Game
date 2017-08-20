@@ -34,6 +34,7 @@ class Player(object):
         return self.name
 
     def get_stats(self):
+        """Return all stats"""
         return self.stats
 
     def get_stat(self, stat):
@@ -49,16 +50,20 @@ class Player(object):
         """The preffered way to change a player's stats. This could be due to status ailements, leveling, healing, etc.
         For example, suppose a player heals themselves using a potion. The set_stat() method would be invoked as follows:
 
-        Player.set_stat('current_health') += 20
+        Player.set_stat('current_health', 20)
         """
 
         assert stat in stats.keys(), "Player.get_stat(): Player stat " + str(stat) + " is not a valid player stat"
-        self.stats[stat] = new_value
+        self.stats[stat] = int(new_value)
 
     def get_inventory(self):
         return self.inventory
 
     def add_inventory_item(self, *items):
+        """Suppose a player finds a treasure chest with three items. You would
+        envoke this method as follows:
+
+        Player.add_inventory_item('rock', 'potion', 'helmet')"""
         self.inventory.extend(items)
 
     def get_money(self):
