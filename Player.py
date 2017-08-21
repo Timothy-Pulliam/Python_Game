@@ -28,8 +28,7 @@ class Player(object):
         self.experience = 0
 
     def set_name(self, name):
-        assert isinstance(name, str), "Player Object set_name method name argument is not of type <str>"
-        self.name = name
+        self.name = str(name)
 
     def get_name(self):
         return self.name
@@ -51,7 +50,7 @@ class Player(object):
         """The preffered way to change a player's stats. This could be due to status ailements, leveling, healing, etc.
         For example, suppose a player heals themselves using a potion. The set_stat() method would be invoked as follows:
 
-        Player.set_stat('current_health', current_health + 20)
+        Player.set_stat('current_health', player1.get_stat('current_health') + 20)
         """
 
         assert stat in self.stats.keys(), "Player.set_stat(): Player stat " + str(stat) + " is not a valid player stat"
