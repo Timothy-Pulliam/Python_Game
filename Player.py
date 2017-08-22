@@ -33,28 +33,42 @@ class Player(object):
     def get_name(self):
         return self.name
 
-    def get_stats(self):
-        """Return all stats"""
-        return self.stats
+    def get_stats(self, *stats):
+        """Returns the numerical value of the stats passed to the method as a Python dictionary. For example:
+        If you want to know the player's max_health and defense, you would invoke as follows:
 
-    def get_stat(self, stat):
-        """Returns the numerical value of the stat passed to the method. For example,
-        If you want to know the player's max_health, you would invoke as follows
+        Player.get_stats('max_health', 'defense')
 
-        Player.get_stat('max_health')
+        If you want to return all of the user's stats, you can simply invoke as follows:
+
+        Player.get_stats()
         """
-        assert stat in self.stats.keys(), "Player.get_stat(): Player stat " + str(stat) + " is not a valid player stat"
-        return self.stats[stat]
+        for stat in stats:
+            assert stat in self.stats.keys(), "Player.get_stat(): Player stat " + str(stat) + " is not a valid player stat"
+        if len(stats) == 0:
+            return self.stats
+        else:
+            return {s: self.stats[s] for s in stats}
 
-    def set_stat(self, stat, new_value):
-        """The preffered way to change a player's stats. This could be due to status ailements, leveling, healing, etc.
-        For example, suppose a player heals themselves using a potion. The set_stat() method would be invoked as follows:
+    def set_stats(self, **stats):
+        """The way player stats are set during character creation.
 
-        Player.set_stat('current_health', player1.get_stat('current_health') + 20)
+        For example, to set all player stats to 0:
+        Player.set_stats()
+
+        To set each stat individually:
+        Player.set_stats('max_health'=20, 'current_health'=20, 'defense'=10, 'strength'=12)
+
         """
 
-        assert stat in self.stats.keys(), "Player.set_stat(): Player stat " + str(stat) + " is not a valid player stat"
-        self.stats[stat] = int(new_value)
+        for key in stats.keys():
+            assert key in self.stats.keys(), "Player.set_stat(): Player stat " + str(stat) + " is not a valid player stat"
+        if len(stats) == 0:
+            for key in self.stats.keys():
+                self.stats[key] = 0
+        else:
+            for key, value in stats.items():
+                self.stats[key] = value
 
     def get_inventory(self):
         return self.inventory

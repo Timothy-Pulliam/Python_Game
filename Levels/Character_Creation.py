@@ -33,7 +33,7 @@ def character_creation():
         player1.set_stat('intelligence', intelligence)
 
         print("Are the following stats correct?")
-        print(stats)
+        print(player1.get_stats())
         response = input()
         if response.lower() == 'y' or response.lower() == 'yes':
             done = True
@@ -42,5 +42,5 @@ def character_creation():
             available_stats = 20
 
     print("Character Created. Stats printed below")
-    print(stats)
+    print(player1.get_stats())
     print("Okay. Great. I see you are a strong person.")
