@@ -8,7 +8,7 @@ class Player(object):
                                 'current_health' : 0,
                                 'max_mana' : 0,         # When current_mana drops to 0, player can no longer cast spells. current_mana cannot exceed max_mana.
                                 'current_mana' : 0,
-                                 'strength' : 0,        # How much physical damage you inflict
+                                'strength' : 0,         # How much physical damage you inflict
                                 'defense' : 0,          # How much you resist physical damage
                                 'intelligence' : 0,     # How much magic damage you inflict
                                 'constitution' : 0,     # How much you resist magic damage
@@ -34,23 +34,25 @@ class Player(object):
         return self.name
 
     def get_stats(self, *stats):
-        """Returns the numerical value of the stats passed to the method as a Python dictionary. For example:
+        """Returns the stats passed to the method as a Python dictionary. For example:
         If you want to know the player's max_health and defense, you would invoke as follows:
 
         Player.get_stats('max_health', 'defense')
 
-        If you want to return all of the user's stats, you can simply invoke as follows:
+        If you want to return all of the player's stats, you can simply invoke as follows:
 
         Player.get_stats()
         """
-        for stat in stats:
-            assert stat in self.stats.keys(), "Player.get_stat(): Player stat " + str(stat) + " is not a valid player stat"
         if len(stats) == 0:
             return self.stats
         else:
-            return {s: self.stats[s] for s in stats}
+            # We need to make sure that valid player stats are being called
+            return {stat_key: self.stats[stat_key] for stat_key in stats if stat_key in self.stats}
 
     def set_stats(self, **stats):
+        # This method should also be able to take a dictionary as input
+        # Because then it could be used in conjunction with Player.get_stats(),
+        # Which returns a dictionary.
         """The way player stats are set during character creation.
 
         For example, to set all player stats to 0:
@@ -60,15 +62,12 @@ class Player(object):
         Player.set_stats('max_health'=20, 'current_health'=20, 'defense'=10, 'strength'=12)
 
         """
-
-        for key in stats.keys():
-            assert key in self.stats.keys(), "Player.set_stat(): Player stat " + str(stat) + " is not a valid player stat"
         if len(stats) == 0:
-            for key in self.stats.keys():
-                self.stats[key] = 0
+            for stat_key in self.stats.keys():
+                self.stats[stat_key] = 0
         else:
-            for key, value in stats.items():
-                self.stats[key] = value
+            for stat_key, value in stats.items():
+                self.stats[stat_key] = value
 
     def get_inventory(self):
         return self.inventory
